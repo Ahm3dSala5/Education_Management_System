@@ -1,0 +1,24 @@
+﻿using EMS.Infrastructure.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace EMS.Infrastructure.Presistence.Context
+{
+    public class AppDbContext :DbContext
+    {
+        public AppDbContext(DbContextOptions<AppDbContext> options) :base(options)
+        {
+
+        }
+
+        public DbSet<Student> Students { set; get; }
+        public DbSet<Course> Departments { set; get; }
+        public DbSet<Room> Rooms { set; get; }
+        public DbSet<Instructor> Instructors { set; get; }
+        public DbSet<Department> Departmentd { set; get; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+        }
+    }
+}
