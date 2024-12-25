@@ -10,7 +10,6 @@
     <Folder Include="Features\" />
     <Folder Include="Mapping\" />
     <Folder Include="PipeLine\" />
-    <Folder Include="ResponseHandler\" />
   </ItemGroup>
 
   <ItemGroup>
