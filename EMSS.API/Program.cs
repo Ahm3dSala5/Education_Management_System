@@ -1,5 +1,6 @@
 using EMS.Infrastructure;
 using EMS.Infrastructure.Presistence.Context;
+using EMS.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,12 +12,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 //database
 var connection = builder.Configuration.GetConnectionString("ConStr");
 builder.Services.AddDbContext<AppDbContext>(options=>options.UseSqlServer(connection));
 
+
 //Resolve Modules
 builder.Services.AddInfrastructuresModules();
+builder.Services.AddBusinessModules();
 
 // all servive must added before builder.Build();
 var app = builder.Build();
