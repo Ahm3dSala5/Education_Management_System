@@ -18,4 +18,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Presistence\StoredProcedure\" />
+    <Folder Include="Presistence\View\" />
+  </ItemGroup>
+
 </Project>

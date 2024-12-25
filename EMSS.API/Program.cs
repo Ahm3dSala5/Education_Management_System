@@ -1,3 +1,4 @@
+using EMS.Core;
 using EMS.Infrastructure;
 using EMS.Infrastructure.Presistence.Context;
 using EMS.Service;
@@ -21,6 +22,7 @@ builder.Services.AddDbContext<AppDbContext>(options=>options.UseSqlServer(connec
 //Resolve Modules
 builder.Services.AddInfrastructuresModules();
 builder.Services.AddBusinessModules();
+builder.Services.AddCoreModules();
 
 // all servive must added before builder.Build();
 var app = builder.Build();
