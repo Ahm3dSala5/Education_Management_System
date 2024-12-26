@@ -9,6 +9,5 @@
         public int DepartmentId {set;get;}
         public ICollection<Instructor> Instructors { set; get; } = new List<Instructor>();
         public ICollection<InstructorRooms> InstructorRooms { set; get; } = new List<InstructorRooms>();
-       
     }
 }

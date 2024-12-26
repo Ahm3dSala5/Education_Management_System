@@ -5,44 +5,112 @@
 namespace EMS.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddStudentAndRoomRelationsipAndNavPropertyForEntireSystem : Migration
+    public partial class ConfigRelationship : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "DepartmentId",
-                table: "Student",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+            migrationBuilder.CreateTable(
+                name: "Department",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Manager = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Department", x => x.Id);
+                });
 
-            migrationBuilder.AddColumn<int>(
-                name: "DepartmentId",
-                table: "Room",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+            migrationBuilder.CreateTable(
+                name: "Course",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Hours = table.Column<int>(type: "int", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Level = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Course", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Course_Department_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Department",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
-            migrationBuilder.AddColumn<int>(
-                name: "DepartmentId",
-                table: "Instructor",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+            migrationBuilder.CreateTable(
+                name: "Instructor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Instructor", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Instructor_Department_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Department",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
-            migrationBuilder.AddColumn<int>(
-                name: "DepartmentId",
-                table: "Course",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+            migrationBuilder.CreateTable(
+                name: "Room",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Capacity = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Room", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Room_Department_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Department",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
-            migrationBuilder.AddColumn<int>(
-                name: "InstructorId",
-                table: "Course",
-                type: "int",
-                nullable: true);
+            migrationBuilder.CreateTable(
+                name: "Student",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    Level = table.Column<int>(type: "int", nullable: false),
+                    GPA = table.Column<double>(type: "float", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Student", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Student_Department_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Department",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.CreateTable(
                 name: "InstructorCourses",
@@ -141,29 +209,14 @@ namespace EMS.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Student_DepartmentId",
-                table: "Student",
-                column: "DepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Room_DepartmentId",
-                table: "Room",
+                name: "IX_Course_DepartmentId",
+                table: "Course",
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Instructor_DepartmentId",
                 table: "Instructor",
                 column: "DepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Course_DepartmentId",
-                table: "Course",
-                column: "DepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Course_InstructorId",
-                table: "Course",
-                column: "InstructorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InstructorCourses_CourseId",
@@ -176,6 +229,16 @@ namespace EMS.Infrastructure.Migrations
                 column: "RoomId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Room_DepartmentId",
+                table: "Room",
+                column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Student_DepartmentId",
+                table: "Student",
+                column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StudentCourses_CourseId",
                 table: "StudentCourses",
                 column: "CourseId");
@@ -184,70 +247,11 @@ namespace EMS.Infrastructure.Migrations
                 name: "IX_StudentInstructors_InstructorId",
                 table: "StudentInstructors",
                 column: "InstructorId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Course_Department_DepartmentId",
-                table: "Course",
-                column: "DepartmentId",
-                principalTable: "Department",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Course_Instructor_InstructorId",
-                table: "Course",
-                column: "InstructorId",
-                principalTable: "Instructor",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Instructor_Department_DepartmentId",
-                table: "Instructor",
-                column: "DepartmentId",
-                principalTable: "Department",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Room_Department_DepartmentId",
-                table: "Room",
-                column: "DepartmentId",
-                principalTable: "Department",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Student_Department_DepartmentId",
-                table: "Student",
-                column: "DepartmentId",
-                principalTable: "Department",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Course_Department_DepartmentId",
-                table: "Course");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Course_Instructor_InstructorId",
-                table: "Course");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Instructor_Department_DepartmentId",
-                table: "Instructor");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Room_Department_DepartmentId",
-                table: "Room");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Student_Department_DepartmentId",
-                table: "Student");
-
             migrationBuilder.DropTable(
                 name: "InstructorCourses");
 
@@ -260,45 +264,20 @@ namespace EMS.Infrastructure.Migrations
             migrationBuilder.DropTable(
                 name: "StudentInstructors");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Student_DepartmentId",
-                table: "Student");
+            migrationBuilder.DropTable(
+                name: "Room");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Room_DepartmentId",
-                table: "Room");
+            migrationBuilder.DropTable(
+                name: "Course");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Instructor_DepartmentId",
-                table: "Instructor");
+            migrationBuilder.DropTable(
+                name: "Instructor");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Course_DepartmentId",
-                table: "Course");
+            migrationBuilder.DropTable(
+                name: "Student");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Course_InstructorId",
-                table: "Course");
-
-            migrationBuilder.DropColumn(
-                name: "DepartmentId",
-                table: "Student");
-
-            migrationBuilder.DropColumn(
-                name: "DepartmentId",
-                table: "Room");
-
-            migrationBuilder.DropColumn(
-                name: "DepartmentId",
-                table: "Instructor");
-
-            migrationBuilder.DropColumn(
-                name: "DepartmentId",
-                table: "Course");
-
-            migrationBuilder.DropColumn(
-                name: "InstructorId",
-                table: "Course");
+            migrationBuilder.DropTable(
+                name: "Department");
         }
     }
 }
