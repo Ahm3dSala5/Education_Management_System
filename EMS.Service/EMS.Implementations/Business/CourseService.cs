@@ -14,6 +14,9 @@ namespace EMS.Service.EMS.Implementations.Business
         }
         public ValueTask<ICollection<Instructor>> GetCourseInstructor(int id)
         {
+            if (id <= 0)
+                throw new ArgumentNullException("Invalid Data");
+
             throw new NotImplementedException();
         }
 

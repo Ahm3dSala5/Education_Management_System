@@ -8,5 +8,11 @@
         public double GPA { set; get; }
         public string FirstName { set; get; }
         public string LastName { set; get; }
+        public Department Department { set; get; }
+        public int DepartmentId { set; get; }
+        public ICollection<Course> Courses { set; get; } = new List<Course>();
+        public ICollection<StudentCourses> StudentCourses { set; get; } = new List<StudentCourses>();
+        public ICollection<StudentInstructors> StudentInstructors { set; get; } = new List<StudentInstructors>();
+        public ICollection<Instructor> Instructors { set; get; } = new List<Instructor>();
     }
 }
