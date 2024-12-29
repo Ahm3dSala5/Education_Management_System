@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EMS.Infrastructure.Domain.Entities;
 using EMS.Service.EMS.Abstractions.Business;
 using EMS.Service.EMS.Implementations.Business;
 using EMS.Service.UnitOfWorks;
@@ -16,7 +17,7 @@ namespace EMS.Service
         {
             service.AddTransient<IUnotOfWork,UnitOfWork>();
             service.AddTransient<IStudentService,StudentService>();
-            service.AddTransient<IDepartmentService,DepartmentService>();
+            service.AddTransient<IDepartmentService<Department>,DepartmentService>();
             service.AddTransient<ICourseService,CourseService>();
             service.AddTransient<IRoomService,RoomService>();
             service.AddTransient<IInstructorService,InstructorService>();

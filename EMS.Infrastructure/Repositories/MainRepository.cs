@@ -13,7 +13,7 @@ namespace EMS.Infrastructure.Repositories
             this._app = app;
             _entity = _app.Set<TEntity>();
         }
-        public async ValueTask<string> Create(TEntity entity)
+        public virtual async ValueTask<string> Create(TEntity entity)
         {
             if (entity is null)
                 throw new ArgumentNullException("Invalid Data");

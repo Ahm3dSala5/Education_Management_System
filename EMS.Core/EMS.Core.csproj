@@ -7,13 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\" />
-    <Folder Include="Mapping\" />
+    <Folder Include="Features\Department\Command\Validations\" />
+    <Folder Include="Features\Department\Query\Handler\" />
+    <Folder Include="Features\Department\Query\Request\" />
+    <Folder Include="Features\Department\Query\Models\" />
+    <Folder Include="Mapping\Department\Query\" />
     <Folder Include="PipeLine\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Mediator" Version="1.0.2123" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EMS.Infrastructure\EMS.Infrastructure.csproj" />
+    <ProjectReference Include="..\EMS.Service\EMS.Service.csproj" />
   </ItemGroup>
 
 </Project>

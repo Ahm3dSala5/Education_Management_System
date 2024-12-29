@@ -1,4 +1,5 @@
-﻿using EMS.Infrastructure.Presistence.Context;
+﻿using EMS.Infrastructure.Domain.Entities;
+using EMS.Infrastructure.Presistence.Context;
 using EMS.Service.EMS.Abstractions.Business;
 using EMS.Service.EMS.Implementations.Business;
 
@@ -13,7 +14,7 @@ namespace EMS.Service.UnitOfWorks
         }
         public IStudentService Students => new StudentService(_app);
 
-        public IDepartmentService Departments => new DepartmentService(_app);
+        public IDepartmentService<Department> Departments => new DepartmentService(_app);
 
         public ICourseService Courses => new CourseService(_app);
 

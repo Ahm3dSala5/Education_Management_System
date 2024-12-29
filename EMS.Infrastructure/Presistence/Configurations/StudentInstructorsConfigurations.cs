@@ -9,7 +9,6 @@ namespace EMS.Infrastructure.Presistence.Configurations
         public void Configure(EntityTypeBuilder<StudentInstructors> builder)
         {
             builder.ToTable("StudentInstructors").HasKey((X => new { X.StudentId, X.InstructorId }));
-
         }
     }
 }

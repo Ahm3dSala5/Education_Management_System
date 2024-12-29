@@ -11,10 +11,10 @@ namespace EMS.Infrastructure.Presistence.Context
         }
 
         public DbSet<Student> Students { set; get; }
-        public DbSet<Course> Departments { set; get; }
+        public DbSet<Course> Courses { set; get; }
         public DbSet<Room> Rooms { set; get; }
         public DbSet<Instructor> Instructors { set; get; }
-        public DbSet<Department> Departmentd { set; get; }
+        public DbSet<Department> Departments { set; get; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
