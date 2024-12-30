@@ -1,6 +1,7 @@
 ﻿using System.Net;
+using EMS.Core.Response;
 
-namespace EMS.Core.ResponseHandler
+namespace EMS.Core.Response
 {
     public class ResponseHandler
     {
@@ -10,7 +11,7 @@ namespace EMS.Core.ResponseHandler
             {
                 Data = _data,
                 Succeeded = true,
-                Status = HttpStatusCode.Created ,
+                StatusCode = HttpStatusCode.Created ,
                 Message = "Created"
             };
         }
@@ -20,7 +21,7 @@ namespace EMS.Core.ResponseHandler
             return new Response<T>()
             {
                 Succeeded = true,
-                Status = HttpStatusCode.OK,
+                StatusCode = HttpStatusCode.OK,
                 Message = _message is null ? "Deleted" : _message
             };
         }
@@ -30,7 +31,7 @@ namespace EMS.Core.ResponseHandler
             return new Response<T>()
             {
                 Succeeded = true,
-                Status = HttpStatusCode.OK,
+                StatusCode = HttpStatusCode.OK,
                 Data = _data,
                 Meta = _meta
             };
@@ -41,7 +42,7 @@ namespace EMS.Core.ResponseHandler
             return new Response<T>()
             {
                 Succeeded = true,
-                Status = HttpStatusCode.Unauthorized,
+                StatusCode = HttpStatusCode.Unauthorized,
                 Message = _message
             };
         }
@@ -51,7 +52,7 @@ namespace EMS.Core.ResponseHandler
             return new Response<T>()
             {
                 Succeeded = false,
-                Status = HttpStatusCode.BadRequest,
+                StatusCode = HttpStatusCode.BadRequest,
                 Message = _message is null ? "BadRequest" : _message
             };
         }
@@ -61,7 +62,7 @@ namespace EMS.Core.ResponseHandler
             return new Response<T>()
             {
                 Succeeded = false,
-                Status = HttpStatusCode.UnprocessableEntity,
+                StatusCode = HttpStatusCode.UnprocessableEntity,
                 Message = _message is null ? "UnprocessableEntity" : _message
             };
         }
@@ -71,7 +72,7 @@ namespace EMS.Core.ResponseHandler
             return new Response<T>()
             {
                 Succeeded = false,
-                Status = HttpStatusCode.NotFound,
+                StatusCode = HttpStatusCode.NotFound,
                 Message = _message is null ? "NotFound" : _message
             };
         }

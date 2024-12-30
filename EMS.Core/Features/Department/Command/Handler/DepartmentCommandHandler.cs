@@ -1,13 +1,14 @@
-﻿using EMS.Core.Features.Departments.Command.Request;
-using MediatR;
-using EMS.Service.UnitOfWorks;
-using AutoMapper;
+﻿using AutoMapper;
+using EMS.Core.Features.Departments.Command.Request;
+using EMS.Core.Response;
 using EMS.Infrastructure.Domain.Entities;
+using EMS.Service.UnitOfWorks;
+using MediatR;
 
 namespace EMS.Core.Features.Departments.Command.Handler
 {
-    public class DepartmentCommandHandler :
-        IRequestHandler<CreateDepartmentCommand, string>
+    public class DepartmentCommandHandler : ResponseHandler ,
+        IRequestHandler<CreateDepartmentCommand, Response<string>>
     {
         private readonly IUnotOfWork _service;
         private readonly IMapper _mapper;
@@ -17,10 +18,13 @@ namespace EMS.Core.Features.Departments.Command.Handler
             this._service = service;
             this._mapper = mapper;
         }
-        public async Task<string> Handle(CreateDepartmentCommand request, CancellationToken cancellationToken)
+
+        public async Task<Response<string>> Handle(CreateDepartmentCommand request, CancellationToken cancellationToken)
         {
             var departmentMapped = _mapper.Map<Department>(request);
-           return  await _service.Departments.Create(departmentMapped);
+            var result = await _service.Departments.Create(departmentMapped);
+            
+            return result == "Created" ? Create(result) : BadRequest<string>();
         }
     }
 }

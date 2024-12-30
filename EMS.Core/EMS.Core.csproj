@@ -8,10 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Department\Command\Validations\" />
-    <Folder Include="Features\Department\Query\Handler\" />
-    <Folder Include="Features\Department\Query\Request\" />
     <Folder Include="Features\Department\Query\Models\" />
-    <Folder Include="Mapping\Department\Query\" />
     <Folder Include="PipeLine\" />
   </ItemGroup>
 

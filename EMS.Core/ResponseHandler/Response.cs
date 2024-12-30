@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace EMS.Core.ResponseHandler
+namespace EMS.Core.Response
 {
     public class Response<T>
     {
@@ -28,7 +28,7 @@ namespace EMS.Core.ResponseHandler
             this.Message = _message;
         }
         
-        public HttpStatusCode Status { set; get; }
+        public HttpStatusCode StatusCode { set; get; }
         public T Data { set; get; }
         public object Meta { set; get; }
         public List<string> Errors { set; get; }
