@@ -5,6 +5,9 @@
         public int Id { set; get; }
         public string Name { set; get; }
         public string JobTitle { set; get; }
+        public DateTime HireDate { set; get; }
+        public string Address { set; get; }
+        public decimal Salary { set; get; }
         public Department Department { set; get; }
         public int DepartmentId { set; get; }
         public ICollection<Student> Students { set; get; } = new List<Student>();

@@ -9,9 +9,11 @@ namespace EMS.API.MainControllers
     public class MainController : ControllerBase
     {
         private readonly IMediator ?_Instance;
+
+        // this line chek if service are resolve then work else it will resolve it
         protected IMediator ? Mediator => _Instance ?? HttpContext.RequestServices.GetService<IMediator>();
 
-        public ObjectResult HandlredResult<T>(Response<T>response)
+        public ObjectResult HandledResult<T>(Response<T>response)
         {
              return  response.StatusCode switch
              {

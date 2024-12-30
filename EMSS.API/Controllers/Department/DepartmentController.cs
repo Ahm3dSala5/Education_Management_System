@@ -15,14 +15,14 @@ namespace EMS.API.Controllers.Department
         public async Task<IActionResult> Create(DepartmentDTO department)
         {
             var Creation = await Mediator!.Send(new CreateDepartmentCommand(department));
-            return Ok(HandlredResult(Creation));
+            return Ok(HandledResult(Creation));
         }
 
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> GetOne(int id)
         {
             var Creation = await Mediator!.Send(new GetDepartmentByIdQuery(id));
-            return Ok(HandlredResult(Creation));
+            return Ok(HandledResult(Creation));
         }
     }
 }
