@@ -5,7 +5,7 @@
         ValueTask<string> Create(TEntity entity);
         ValueTask<TEntity> GetOne(int id);
         ValueTask<ICollection<TEntity>> GetAll();
-        ValueTask<string> Update(TEntity entity);
+        ValueTask<string> Update(TEntity entity,int id);
         ValueTask<string> Delete(int id);
     }
 }

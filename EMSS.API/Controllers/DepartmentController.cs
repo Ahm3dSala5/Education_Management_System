@@ -4,7 +4,7 @@ using EMS.Core.Features.Departments.Query.Request;
 using EMS.Infrastructure.Domain.DTOs.Department;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EMS.API.Controllers.Department
+namespace EMS.API.Controllers
 {
     [ApiController]
     [Route("api/department")]
@@ -23,6 +23,20 @@ namespace EMS.API.Controllers.Department
         {
             var Creation = await Mediator!.Send(new GetDepartmentByIdQuery(id));
             return Ok(HandledResult(Creation));
+        }
+
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update(DepartmentUpdateDTO department)
+        {
+            var updating = await Mediator!.Send(new UpdateDepartmentCommand(department));
+            return Ok(HandledResult(updating));
+        }
+
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleting = await Mediator!.Send(new DeleteDepartmentCommand(id));
+            return Ok(HandledResult(deleting));
         }
     }
 }

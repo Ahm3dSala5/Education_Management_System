@@ -1,0 +1,16 @@
+﻿using EMS.Core.Features.Departments.Command.Request;
+using FluentValidation;
+namespace EMS.Core.Features.Departments.Command.Validations
+{
+    // this abstract_Validations.AspNetCore in fluntvalidation package 
+    // after install package you must resolve service
+    public class CreateDepartmentValidations : AbstractValidator<CreateDepartmentCommand>
+    {
+        public CreateDepartmentValidations()
+        {
+            RuleFor(x => x.Name).NotEmpty().MinimumLength(5).MaximumLength(15);
+            RuleFor(x => x.Manager).NotEmpty().MinimumLength(10).MaximumLength(15);
+        }
+    }
+
+}

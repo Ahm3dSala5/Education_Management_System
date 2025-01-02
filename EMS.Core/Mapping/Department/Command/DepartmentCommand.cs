@@ -11,5 +11,13 @@ namespace EMS.Core.Mapping.Departments
                 .ForMember(des => des.Manager, src => src.MapFrom(src => src.Manager))
                 .ForMember(des => des.Name, src => src.MapFrom(src => src.Name)).ReverseMap();
         }
+
+        public void AddUpdateDepartmentMapping()
+        {
+            CreateMap<Department, UpdateDepartmentCommand>()
+                .ForMember(des => des.Id, src => src.MapFrom(src => src.Id))
+                .ForMember(des => des.Manager, src => src.MapFrom(src => src.Manager))
+                .ForMember(des => des.Name, src => src.MapFrom(src => src.Name)).ReverseMap();
+        }
     }
 }

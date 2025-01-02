@@ -58,14 +58,18 @@ namespace EMS.Infrastructure.Repositories
             return entity;
         }
 
-        public async ValueTask<string> Update(TEntity entity)
+        public async ValueTask<string> Update(TEntity entity, int id)
         {
             if (entity is null)
                 throw new ArgumentNullException("Invalid Data");
+            
+            var found = await _entity.FindAsync(id);
+            if (found is null)
+                throw new Exception($"{entity.GetType()} Not Found");
 
-            _entity.Attach(entity);
+            _app.Entry(found).CurrentValues.SetValues(entity);
             var resultUpdate = await _app.SaveChangesAsync();
-            return resultUpdate > 0 ? "Update" : "Invalid";
+            return resultUpdate > 0 ? "Updated" : "Invalid";
         }
     }
 }
