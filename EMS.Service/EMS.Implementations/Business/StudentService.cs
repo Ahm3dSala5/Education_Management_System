@@ -2,13 +2,14 @@
 using EMS.Infrastructure.Presistence.Context;
 using EMS.Infrastructure.Repositories;
 using EMS.Service.EMS.Abstractions.Business;
+using Microsoft.Extensions.Configuration;
 
 namespace EMS.Service.EMS.Implementations.Business
 {
     public class StudentService : MainRepository<Student> , IStudentService
     {
         private AppDbContext _app;
-        public StudentService(AppDbContext app) : base(app)
+        public StudentService(AppDbContext app , IConfiguration config) : base(app,config)
         {
             this._app = app;
         }

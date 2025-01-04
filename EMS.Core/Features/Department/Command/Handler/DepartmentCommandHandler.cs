@@ -13,10 +13,10 @@ namespace EMS.Core.Features.Departments.Command.Handler
         IRequestHandler<DeleteDepartmentCommand,Response<string>>
 
     {
-        private readonly IUnotOfWork _service;
+        private readonly IUnitOfWork _service;
         private readonly IMapper _mapper;
 
-        public DepartmentCommandHandler(IUnotOfWork service ,IMapper mapper)
+        public DepartmentCommandHandler(IUnitOfWork service  ,IMapper mapper)
         {
             this._service = service;
             this._mapper = mapper;

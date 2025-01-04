@@ -3,13 +3,14 @@ using EMS.Infrastructure.Presistence.Context;
 using EMS.Infrastructure.Repositories;
 using EMS.Service.EMS.Abstractions.Business;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace EMS.Service.EMS.Implementations.Business
 {
     public class DepartmentService : MainRepository<Department>,IDepartmentService<Department>
     {
         private AppDbContext _app;
-        public DepartmentService(AppDbContext app) : base(app)
+        public DepartmentService(AppDbContext app,IConfiguration config) : base(app, config)
         {
             this._app = app;
         }

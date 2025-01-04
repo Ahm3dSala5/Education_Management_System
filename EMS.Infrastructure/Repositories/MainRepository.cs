@@ -1,6 +1,11 @@
 ﻿
+using System.Data;
+using Dapper;
+using System.Data.SqlClient;
 using EMS.Infrastructure.Presistence.Context;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace EMS.Infrastructure.Repositories
 {
@@ -8,9 +13,11 @@ namespace EMS.Infrastructure.Repositories
     {
         private AppDbContext _app;
         private DbSet<TEntity> _entity;
-        public MainRepository(AppDbContext app)
+        private readonly string _connection;
+        public MainRepository(AppDbContext app,IConfiguration config)
         {
             this._app = app;
+            this._connection = config.GetConnectionString("ConStr")!;
             _entity = _app.Set<TEntity>();
         }
         public virtual async ValueTask<string> Create(TEntity entity)
@@ -39,11 +46,15 @@ namespace EMS.Infrastructure.Repositories
 
         public async ValueTask<ICollection<TEntity>> GetAll()
         {
-            var entities = await  _entity.ToListAsync();
-            if (entities is null)
-                throw new Exception("Entity Not Found");
+            using (IDbConnection connection = new SqlConnection(_connection))
+            {
+                string sql = $"SELECT * FROM {typeof(TEntity).Name}";
+                var result = await connection.QueryAsync<TEntity>(sql);
 
-            return entities;
+                if (result.Count() == 0)
+                    throw new Exception($"{typeof(TEntity).Name} Not Have Any Item");
+                return result.ToList();
+            }
         }
 
         public async ValueTask<TEntity> GetOne(int id)
@@ -51,9 +62,14 @@ namespace EMS.Infrastructure.Repositories
             if (id <= 0)
                 throw new ArgumentNullException("Invalid Data");
 
-            var entity = await _entity.FindAsync(id);
+            TEntity entity ;
+            using(IDbConnection connection = new SqlConnection(_connection))
+            {
+                var sql = $"SELECT * FROM {typeof(TEntity).Name} WHERE ID = @Id";
+                entity = await connection.QueryFirstAsync<TEntity>(sql,new { Id = id});
+            }
             if (entity is null)
-                throw new Exception("Entity Not Found");
+                throw new Exception($"{nameof(entity)} not found");
 
             return entity;
         }

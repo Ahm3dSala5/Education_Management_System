@@ -3,7 +3,7 @@ using EMS.Service.EMS.Abstractions.Business;
 
 namespace EMS.Service.UnitOfWorks
 {
-    public interface IUnotOfWork :IDisposable
+    public interface IUnitOfWork :IDisposable
     {
         IStudentService Students { get; }
         IDepartmentService<Department> Departments { get; }

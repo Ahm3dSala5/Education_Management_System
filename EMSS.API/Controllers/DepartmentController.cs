@@ -21,8 +21,15 @@ namespace EMS.API.Controllers
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> GetOne(int id)
         {
-            var Creation = await Mediator!.Send(new GetDepartmentByIdQuery(id));
-            return Ok(HandledResult(Creation));
+            var department = await Mediator!.Send(new GetDepartmentByIdQuery(id));
+            return Ok(HandledResult(department));
+        }
+
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAll()
+        {
+            var departments = await Mediator!.Send(new GetAllDepartmentQuery());
+            return Ok(HandledResult(departments));
         }
 
         [HttpPut("Update")]

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Department\Query\Models\" />
+    <Folder Include="Features\Student\Query\" />
     <Folder Include="PipeLine\" />
   </ItemGroup>
 

@@ -15,7 +15,7 @@ namespace EMS.Service
     {
         public static void AddBusinessModules(this IServiceCollection service)
         {
-            service.AddTransient<IUnotOfWork,UnitOfWork>();
+            service.AddTransient<IUnitOfWork,UnitOfWork>();
             service.AddTransient<IStudentService,StudentService>();
             service.AddTransient<IDepartmentService<Department>,DepartmentService>();
             service.AddTransient<ICourseService,CourseService>();

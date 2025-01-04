@@ -26,7 +26,7 @@ namespace EMS.Core.Response
             };
         }
 
-        public Response<T> Success<T>(T _data,object _meta = null)
+        public Response<T> Success<T>(T _data, object _meta = null,ICollection<T> listData = null)
         {
             return new Response<T>()
             {
