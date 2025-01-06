@@ -21,8 +21,8 @@ namespace EMS.Service.EMS.Implementations.Business
         }
         public async ValueTask<ICollection<Course>> GetDepartmentCourses(int id)
         {
-            if (id <= 0)
-                throw new ArgumentNullException("Invalid Data");
+            if (id < 0)
+                throw new ArgumentNullException("Department ID cannot be negative");
 
             using(IDbConnection connection = new SqlConnection(_connection))
             {
@@ -55,7 +55,7 @@ namespace EMS.Service.EMS.Implementations.Business
             using (IDbConnection connection = new SqlConnection(_connection))
             {
                 var Sql = "SELECT * FROM STUDENT WHERE DEPARTMENTID = @Id";
-                var students = await connection.QueryAsync<Student>(Sql,new {Id =id});
+                var students = await connection.QueryAsync<Student>(Sql, new { Id = id });
 
                 return students.ToList();
             }

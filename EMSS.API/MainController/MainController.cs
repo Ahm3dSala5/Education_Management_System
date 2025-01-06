@@ -13,7 +13,7 @@ namespace EMS.API.MainControllers
         // this line chek if service are resolve then work else it will resolve it
         protected IMediator ? Mediator => _Instance ?? HttpContext.RequestServices.GetService<IMediator>();
 
-        public ObjectResult HandledResult<T>(Response<T>response)
+        public ObjectResult HandledResult<T>(Result<T>response)
         {
              return  response.StatusCode switch
              {

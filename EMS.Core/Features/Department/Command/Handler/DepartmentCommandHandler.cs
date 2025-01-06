@@ -7,10 +7,10 @@ using MediatR;
 
 namespace EMS.Core.Features.Departments.Command.Handler
 {
-    public class DepartmentCommandHandler : ResponseHandler ,
-        IRequestHandler<CreateDepartmentCommand, Response<string>> ,
-        IRequestHandler<UpdateDepartmentCommand,Response<string>> ,
-        IRequestHandler<DeleteDepartmentCommand,Response<string>>
+    public class DepartmentCommandHandler : ResultHandler ,
+        IRequestHandler<CreateDepartmentCommand, Result<string>> ,
+        IRequestHandler<UpdateDepartmentCommand,Result<string>> ,
+        IRequestHandler<DeleteDepartmentCommand,Result<string>>
 
     {
         private readonly IUnitOfWork _service;
@@ -22,7 +22,7 @@ namespace EMS.Core.Features.Departments.Command.Handler
             this._mapper = mapper;
         }
 
-        public async Task<Response<string>> Handle(CreateDepartmentCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(CreateDepartmentCommand request, CancellationToken cancellationToken)
         {
             var departmentMapped = _mapper.Map<Department>(request);
             var result = await _service.Departments.Create(departmentMapped);
@@ -30,7 +30,7 @@ namespace EMS.Core.Features.Departments.Command.Handler
             return result == "Created" ? Create(result) : BadRequest<string>();
         }
 
-        public async Task<Response<string>> Handle(UpdateDepartmentCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(UpdateDepartmentCommand request, CancellationToken cancellationToken)
         {
             var deptMapped = _mapper.Map<Department>(request);
             var updatingResult = await _service.Departments.Update(deptMapped,request.Id);
@@ -38,7 +38,7 @@ namespace EMS.Core.Features.Departments.Command.Handler
             return updatingResult == "Updated" ? Success<string>(updatingResult) :BadRequest<string>(updatingResult);
         }
 
-        public async Task<Response<string>> Handle(DeleteDepartmentCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(DeleteDepartmentCommand request, CancellationToken cancellationToken)
         {
             var deletingResult = await _service.Departments.Delete(request.Id);
             return deletingResult == "Deleted" ? Success<string>(deletingResult) : BadRequest<string>(deletingResult);

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace EMS.Core.Features.Departments.Command.Request
 {
-    public class DeleteDepartmentCommand :IRequest<Response<string>>
+    public class DeleteDepartmentCommand :IRequest<Result<string>>
     {
         public DeleteDepartmentCommand(int id)
         {

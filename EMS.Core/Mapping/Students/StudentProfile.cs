@@ -13,6 +13,7 @@ namespace EMS.Core.Mapping.Students
         {
             CreateStudentMapping();
             UpdateStudentMapping();
+            GetDepartmentStudentMapping();
         }
     }
 }

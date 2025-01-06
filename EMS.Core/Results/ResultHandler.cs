@@ -3,11 +3,11 @@ using EMS.Core.Response;
 
 namespace EMS.Core.Response
 {
-    public class ResponseHandler
+    public class ResultHandler
     {
-        public Response<T> Create<T>(T _data ,object meta = null)
+        public Result<T> Create<T>(T _data ,object meta = null)
         {
-            return new Response<T>()
+            return new Result<T>()
             {
                 Data = _data,
                 Succeeded = true,
@@ -16,9 +16,9 @@ namespace EMS.Core.Response
             };
         }
 
-        public Response<T> Delete<T>(string _message = null)
+        public Result<T> Delete<T>(string _message = null)
         {
-            return new Response<T>()
+            return new Result<T>()
             {
                 Succeeded = true,
                 StatusCode = HttpStatusCode.OK,
@@ -26,9 +26,9 @@ namespace EMS.Core.Response
             };
         }
 
-        public Response<T> Success<T>(T _data, object _meta = null,ICollection<T> listData = null)
+        public Result<T> Success<T>(T _data, object _meta = null,ICollection<T> listData = null)
         {
-            return new Response<T>()
+            return new Result<T>()
             {
                 Succeeded = true,
                 StatusCode = HttpStatusCode.OK,
@@ -37,9 +37,9 @@ namespace EMS.Core.Response
             };
         }
 
-        public Response<T> Unauhorized<T>(string _message = null)
+        public Result<T> Unauhorized<T>(string _message = null)
         {
-            return new Response<T>()
+            return new Result<T>()
             {
                 Succeeded = true,
                 StatusCode = HttpStatusCode.Unauthorized,
@@ -47,9 +47,9 @@ namespace EMS.Core.Response
             };
         }
 
-        public Response<T> BadRequest<T>(string _message = null)
+        public Result<T> BadRequest<T>(string _message = null)
         {
-            return new Response<T>()
+            return new Result<T>()
             {
                 Succeeded = false,
                 StatusCode = HttpStatusCode.BadRequest,
@@ -57,9 +57,9 @@ namespace EMS.Core.Response
             };
         }
 
-        public Response<T> UnprocessableEntity<T>(string _message = null)
+        public Result<T> UnprocessableEntity<T>(string _message = null)
         {
-            return new Response<T>()
+            return new Result<T>()
             {
                 Succeeded = false,
                 StatusCode = HttpStatusCode.UnprocessableEntity,
@@ -67,9 +67,9 @@ namespace EMS.Core.Response
             };
         }
 
-        public Response<T> NotFound<T>(string _message = null)
+        public Result<T> NotFound<T>(string _message = null)
         {
-            return new Response<T>()
+            return new Result<T>()
             {
                 Succeeded = false,
                 StatusCode = HttpStatusCode.NotFound,

@@ -13,7 +13,7 @@ namespace EMS.API.Controllers
     {
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(DepartmentDTO department)
+        public async Task<IActionResult> Create(DepartmentModel department)
         {
             var Creation = await Mediator!.Send(new CreateDepartmentCommand(department));
             return Ok(HandledResult(Creation));

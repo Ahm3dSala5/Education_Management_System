@@ -3,7 +3,7 @@ using MediatR;
 
 namespace EMS.Core.Features.Students.Command.Request
 {
-    public class DeleteStudentCommand : IRequest<Response<string>>
+    public class DeleteStudentCommand : IRequest<Result<string>>
     {
         public DeleteStudentCommand(int id)
         {

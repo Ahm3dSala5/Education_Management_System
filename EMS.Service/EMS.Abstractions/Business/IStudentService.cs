@@ -10,8 +10,8 @@ namespace EMS.Service.EMS.Abstractions.Business
 {
     public interface IStudentService : IMainRepository<Student>
     {
-        ValueTask<ICollection<Course>> GetStudentCourses(int id);
-        ValueTask<ICollection<Instructor>> GetStudentInstructor(int id);
+        ValueTask<ICollection<Course>> GetStudentCourses(int ?id);
+        ValueTask<ICollection<Instructor>> GetStudentInstructor(int? id);
     }
     
 }

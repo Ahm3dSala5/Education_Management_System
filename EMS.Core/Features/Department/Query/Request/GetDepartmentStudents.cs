@@ -1,10 +1,10 @@
-﻿using EMS.Core.Response;
-using EMS.Infrastructure.Domain.DTOs.Students;
+﻿using EMS.Core.Features.Students.Query.Model;
+using EMS.Core.Response;
 using MediatR;
 
 namespace EMS.Core.Features.Departments.Query.Model
 {
-    public class GetDepartmentStudents: IRequest<Response<List<StudentModel>>>
+    public class GetDepartmentStudents: IRequest<Result<List<StudentModel>>>
     {
         public GetDepartmentStudents(int _id)
         {

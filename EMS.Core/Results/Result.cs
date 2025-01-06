@@ -2,27 +2,27 @@
 
 namespace EMS.Core.Response
 {
-    public class Response<T>
+    public class Result<T>
     {
-        public Response()
+        public Result()
         {
 
         }
 
-        public Response(T _data, string _message = null)
+        public Result(T _data, string _message = null)
         {
             this.Succeeded = true;
             this.Data = _data;
             this.Message = _message;
         }
 
-        public Response(string _message)
+        public Result(string _message)
         {
             this.Succeeded = false;
             this.Message = _message;
         }
 
-        public Response(string _message,bool _succeeded)
+        public Result(string _message,bool _succeeded)
         {
             this.Succeeded = _succeeded;
             this.Message = _message;

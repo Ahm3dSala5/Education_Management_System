@@ -3,9 +3,9 @@
     public interface IMainRepository<TEntity> where TEntity : class
     {
         ValueTask<string> Create(TEntity entity);
-        ValueTask<TEntity> GetOne(int id);
+        ValueTask<TEntity> GetOne(int ?id);
         ValueTask<ICollection<TEntity>> GetAll();
-        ValueTask<string> Update(TEntity entity,int id);
-        ValueTask<string> Delete(int id);
+        ValueTask<string> Update(TEntity entity,int ?id);
+        ValueTask<string> Delete(int? id);
     }
 }

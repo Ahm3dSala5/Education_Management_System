@@ -4,7 +4,7 @@ using MediatR;
 
 namespace EMS.Core.Features.Students.Command.Request
 {
-    public class UpdateStudentCommand : IRequest<Response<string>>
+    public class UpdateStudentCommand : IRequest<Result<string>>
     {
         public UpdateStudentCommand(UpdateStudentDTO student)
         {

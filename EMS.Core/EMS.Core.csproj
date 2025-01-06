@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Student\Query\" />
     <Folder Include="PipeLine\" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-﻿namespace EMS.Infrastructure.Domain.DTOs.Courses
+﻿namespace EMS.Core.Features.Courses.Query.Model
 {
     public class CourseModel
     {

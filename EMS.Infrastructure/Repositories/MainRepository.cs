@@ -25,15 +25,16 @@ namespace EMS.Infrastructure.Repositories
             if (entity is null)
                 throw new ArgumentNullException("Invalid Data");
 
-            await _entity.AddAsync(entity);
+            var result = await _entity.AddAsync(entity);
+            
             var resultCreated = await _app.SaveChangesAsync();
             return resultCreated > 0 ? "Created" : "Invalid";
         }
 
-        public async ValueTask<string> Delete(int id)
+        public async ValueTask<string> Delete(int ?id)
         {
             if (id<=0)
-                throw new ArgumentNullException("Invalid Data");
+                throw new ArgumentOutOfRangeException("Invalid Data");
 
             var entity = await _entity.FindAsync(id); 
             if (entity is null)
@@ -50,14 +51,11 @@ namespace EMS.Infrastructure.Repositories
             {
                 string sql = $"SELECT * FROM {typeof(TEntity).Name}";
                 var result = await connection.QueryAsync<TEntity>(sql);
-
-                if (result.Count() == 0)
-                    throw new Exception($"{typeof(TEntity).Name} Not Have Any Item");
                 return result.ToList();
             }
         }
 
-        public async ValueTask<TEntity> GetOne(int id)
+        public async ValueTask<TEntity> GetOne(int ?id)
         {
             if (id <= 0)
                 throw new ArgumentNullException("Invalid Data");
@@ -66,15 +64,12 @@ namespace EMS.Infrastructure.Repositories
             using(IDbConnection connection = new SqlConnection(_connection))
             {
                 var sql = $"SELECT * FROM {typeof(TEntity).Name} WHERE ID = @Id";
-                entity = await connection.QueryFirstAsync<TEntity>(sql,new { Id = id});
+                entity = await connection.QuerySingleOrDefaultAsync<TEntity>(sql,new { Id = id});
+                return entity;
             }
-            if (entity is null)
-                throw new Exception($"{nameof(entity)} not found");
-
-            return entity;
         }
 
-        public async ValueTask<string> Update(TEntity entity, int id)
+        public async ValueTask<string> Update(TEntity entity, int ?id)
         {
             if (entity is null)
                 throw new ArgumentNullException("Invalid Data");

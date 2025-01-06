@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EMS.Core.Features.Departments.Query.Model
+namespace EMS.Core.Features.Students.Query.Model
 {
     public class StudentModel
     {

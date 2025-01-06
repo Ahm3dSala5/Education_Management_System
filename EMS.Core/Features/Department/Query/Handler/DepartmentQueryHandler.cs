@@ -1,21 +1,21 @@
 ﻿using AutoMapper;
+using EMS.Core.Features.Courses.Query.Model;
 using EMS.Core.Features.Departments.Query.Model;
 using EMS.Core.Features.Departments.Query.Request;
+using EMS.Core.Features.Instructors.Query.Model;
+using EMS.Core.Features.Students.Query.Model;
 using EMS.Core.Response;
-using EMS.Infrastructure.Domain.DTOs.Courses;
-using EMS.Infrastructure.Domain.DTOs.Department;
-using EMS.Infrastructure.Domain.DTOs.Instractors;
 using EMS.Service.UnitOfWorks;
 using MediatR;
 
 namespace EMS.Core.Features.Departments.Query.Handler
 {
-    public class DepartmentQueryHandler : ResponseHandler,
-        IRequestHandler<GetDepartmentByIdQuery, Response<DepartmentDTO>> ,
-        IRequestHandler<GetAllDepartmentQuery, Response<List<DepartmentDTO>>> ,
-         IRequestHandler<GetDepartmentInstractors, Response<List<InstractorModel>>>,
-         IRequestHandler<GetDepartmentStudents, Response<List<StudentModel>>>,
-         IRequestHandler<GetDepartmentCourses, Response<List<CourseModel>>>
+    public class DepartmentQueryHandler : ResultHandler,
+        IRequestHandler<GetDepartmentByIdQuery, Result<DepartmentModel>> ,
+        IRequestHandler<GetAllDepartmentQuery, Result<List<DepartmentModel>>> ,
+         IRequestHandler<GetDepartmentInstractors, Result<List<InstractorModel>>>,
+         IRequestHandler<GetDepartmentStudents, Result<List<StudentModel>>>,
+         IRequestHandler<GetDepartmentCourses, Result<List<CourseModel>>>
     {
 
         private readonly IMapper _mapper;
@@ -27,21 +27,21 @@ namespace EMS.Core.Features.Departments.Query.Handler
             this._service = service;
         }
 
-        public async Task<Response<DepartmentDTO>> Handle(GetDepartmentByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Result<DepartmentModel>> Handle(GetDepartmentByIdQuery request, CancellationToken cancellationToken)
         {
             var department = await _service.Departments.GetOne(request.Id);
-            var deptMapped = _mapper.Map<DepartmentDTO>(department);
-            return deptMapped != null ? Success<DepartmentDTO>(deptMapped) : BadRequest<DepartmentDTO>(_message:"Department Not Found"); 
+            var deptMapped = _mapper.Map<DepartmentModel>(department);
+            return deptMapped != null ? Success<DepartmentModel>(deptMapped) : BadRequest<DepartmentModel>(_message:"Department Not Found"); 
         }
 
-        public async Task<Response<List<DepartmentDTO>>> Handle(GetAllDepartmentQuery request, CancellationToken cancellationToken)
+        public async Task<Result<List<DepartmentModel>>> Handle(GetAllDepartmentQuery request, CancellationToken cancellationToken)
         {
             var departments = await _service.Departments.GetAll();
-            var deptMapped = _mapper.Map<List<DepartmentDTO>>(departments);
-            return departments.Count() != 0 ? Success<List<DepartmentDTO>>(deptMapped) : BadRequest<List<DepartmentDTO>>(_message:"Department List Is Empty");
+            var deptMapped = _mapper.Map<List<DepartmentModel>>(departments);
+            return departments.Count() != 0 ? Success<List<DepartmentModel>>(deptMapped) : BadRequest<List<DepartmentModel>>(_message:"Department List Is Empty");
         }
 
-        public async Task<Response<List<InstractorModel>>> Handle(GetDepartmentInstractors request, CancellationToken cancellationToken)
+        public async Task<Result<List<InstractorModel>>> Handle(GetDepartmentInstractors request, CancellationToken cancellationToken)
         {
             var instractors = await _service.Departments.GetDepartmentInstructor(request.dept_Id);
             var instractorMapped =  _mapper.Map<List<InstractorModel>>(instractors);
@@ -50,7 +50,7 @@ namespace EMS.Core.Features.Departments.Query.Handler
                    BadRequest<List<InstractorModel>>(_message: "Department Not Has Any Instractors");
         }
 
-        public async Task<Response<List<StudentModel>>> Handle(GetDepartmentStudents request, CancellationToken cancellationToken)
+        public async Task<Result<List<StudentModel>>> Handle(GetDepartmentStudents request, CancellationToken cancellationToken)
         {
             var students = await _service.Departments.GetDepartmentStudents(request.dept_Id);
             var studentsMapped = _mapper.Map<List<StudentModel>>(students);
@@ -59,7 +59,7 @@ namespace EMS.Core.Features.Departments.Query.Handler
                   BadRequest<List<StudentModel>>(_message: "Department Not Has Any Student");
         }
 
-        public async Task<Response<List<CourseModel>>> Handle(GetDepartmentCourses request, CancellationToken cancellationToken)
+        public async Task<Result<List<CourseModel>>> Handle(GetDepartmentCourses request, CancellationToken cancellationToken)
         {
             var courses = await _service.Departments.GetDepartmentCourses(request.dept_Id);
             var coursesMapped = _mapper.Map<List<CourseModel>>(courses);
