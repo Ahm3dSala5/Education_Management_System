@@ -6,9 +6,12 @@ namespace EMS.Core.Mapping.Departments
     {
         public DepartmentProfile()
         {
+            GetDepartmentCourseMapping();
             AddCreateDepartmentMapping();
             AddUpdateDepartmentMapping();
             AddGetDepartmentByIdMapping();
+            GetDepartmentStudentMapping();
+            GetDepartmentInstractorsMapping();
         }
     }
 }

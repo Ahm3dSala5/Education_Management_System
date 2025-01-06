@@ -8,8 +8,8 @@
         public DateTime HireDate { set; get; }
         public string Address { set; get; }
         public decimal Salary { set; get; }
-        public Department Department { set; get; }
         public int DepartmentId { set; get; }
+        public Department Department { set; get; }
         public ICollection<Student> Students { set; get; } = new List<Student>();
         public ICollection<Room> Rooms { set; get; } = new List<Room>();
         public ICollection<Course> Courses { set; get; } = new List<Course>();

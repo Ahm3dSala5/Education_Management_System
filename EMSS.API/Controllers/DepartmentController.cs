@@ -1,5 +1,6 @@
 ﻿using EMS.API.MainControllers;
 using EMS.Core.Features.Departments.Command.Request;
+using EMS.Core.Features.Departments.Query.Model;
 using EMS.Core.Features.Departments.Query.Request;
 using EMS.Infrastructure.Domain.DTOs.Department;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,27 @@ namespace EMS.API.Controllers
         {
             var departments = await Mediator!.Send(new GetAllDepartmentQuery());
             return Ok(HandledResult(departments));
+        }
+
+        [HttpGet("GetStudents/{id}")]
+        public async Task<IActionResult> GetStudents(int id)
+        {
+            var students = await Mediator!.Send(new GetDepartmentStudents(id));
+            return Ok(HandledResult(students));
+        }
+
+        [HttpGet("GetCourses/{id}")]
+        public async Task<IActionResult> GetCourses(int id)
+        {
+            var courses = await Mediator!.Send(new GetDepartmentCourses(id));
+            return Ok(HandledResult(courses));
+        }
+
+        [HttpGet("GetInstractors/{id}")]
+        public async Task<IActionResult> GetInstractors(int id)
+        {
+            var instractors = await Mediator!.Send(new GetDepartmentInstractors(id));
+            return Ok(HandledResult(instractors));
         }
 
         [HttpPut("Update")]

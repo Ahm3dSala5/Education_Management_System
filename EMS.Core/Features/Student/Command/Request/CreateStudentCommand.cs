@@ -1,4 +1,5 @@
-﻿using EMS.Core.Response;
+﻿using EMS.Core.Features.Departments.Query.Model;
+using EMS.Core.Response;
 using EMS.Infrastructure.Domain.DTOs.Students;
 using EMS.Infrastructure.Domain.Entities;
 using MediatR;
@@ -7,7 +8,7 @@ namespace EMS.Core.Features.Students.Command.Request
 {
     public class CreateStudentCommand : IRequest<Response<string>>
     {
-        public CreateStudentCommand(StudentDTO student)
+        public CreateStudentCommand(StudentModel student)
         {
             this.Age = student.std_age;
             this.FirstName = student.std_FName;

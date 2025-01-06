@@ -1,4 +1,5 @@
 ﻿using EMS.API.MainControllers;
+using EMS.Core.Features.Departments.Query.Model;
 using EMS.Core.Features.Students.Command.Request;
 using EMS.Infrastructure.Domain.DTOs.Students;
 using MediatR;
@@ -18,7 +19,7 @@ namespace EMS.API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create(StudentDTO student)
+        public async Task<IActionResult> Create(StudentModel student)
         {
             var creationResult = await _mediator.Send(new CreateStudentCommand(student));
             return HandledResult(creationResult);

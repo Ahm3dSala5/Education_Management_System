@@ -1,4 +1,5 @@
 ﻿using EMS.Core.Features.Departments.Command.Request;
+using EMS.Core.Features.Departments.Query.Request;
 using EMS.Infrastructure.Domain.Entities;
 
 namespace EMS.Core.Mapping.Departments
@@ -19,5 +20,7 @@ namespace EMS.Core.Mapping.Departments
                 .ForMember(des => des.Manager, src => src.MapFrom(src => src.Manager))
                 .ForMember(des => des.Name, src => src.MapFrom(src => src.Name)).ReverseMap();
         }
+
+        
     }
 }

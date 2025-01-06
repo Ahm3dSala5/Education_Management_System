@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EMS.Infrastructure.Domain.DTOs.Students
+namespace EMS.Core.Features.Departments.Query.Model
 {
-    public class StudentDTO
+    public class StudentModel
     {
+        public int std_id { set; get; }
         public int std_age { set; get; }
         public int std_level { set; get; }
         public double std_GPA { set; get; }
