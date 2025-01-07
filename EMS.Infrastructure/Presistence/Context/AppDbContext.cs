@@ -1,9 +1,11 @@
 ﻿using EMS.Infrastructure.Domain.Entities;
+using EMS.Infrastructure.Domain.Entities.Security;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.Identity;
 namespace EMS.Infrastructure.Presistence.Context
 {
-    public class AppDbContext :DbContext
+    public class AppDbContext :  IdentityDbContext<User,UserRole,string>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) :base(options)
         {
