@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\DTOs\Course\" />
     <Folder Include="Domain\DTOs\Instractor\" />
     <Folder Include="Presistence\StoredProcedure\" />
     <Folder Include="Presistence\View\" />

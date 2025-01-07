@@ -22,26 +22,36 @@ namespace EMS.Core.Features.Departments.Command.Handler
             this._mapper = mapper;
         }
 
-        public async Task<Result<string>> Handle(CreateDepartmentCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle
+            (CreateDepartmentCommand request, CancellationToken cancellationToken)
         {
             var departmentMapped = _mapper.Map<Department>(request);
             var result = await _service.Departments.Create(departmentMapped);
             
-            return result == "Created" ? Create(result) : BadRequest<string>();
+            return result == "Created" ? Create(result) :
+                BadRequest<string>(_message:"Cannot Create Department");
         }
 
-        public async Task<Result<string>> Handle(UpdateDepartmentCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle
+            (UpdateDepartmentCommand request, CancellationToken cancellationToken)
         {
             var deptMapped = _mapper.Map<Department>(request);
             var updatingResult = await _service.Departments.Update(deptMapped,request.Id);
 
-            return updatingResult == "Updated" ? Success<string>(updatingResult) :BadRequest<string>(updatingResult);
+            return updatingResult == "Updated" ?
+                Success<string>(updatingResult) :
+                updatingResult == "Not Found" ? NotFound<string>(_message:"Department Not Found"):
+                BadRequest<string>(updatingResult);
         }
 
-        public async Task<Result<string>> Handle(DeleteDepartmentCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle
+            (DeleteDepartmentCommand request, CancellationToken cancellationToken)
         {
             var deletingResult = await _service.Departments.Delete(request.Id);
-            return deletingResult == "Deleted" ? Success<string>(deletingResult) : BadRequest<string>(deletingResult);
+            return deletingResult == "Deleted" ?
+               Success<string>(deletingResult) :
+               deletingResult == "Not Found" ? NotFound<string>(_message: "Department Not Found") :
+               BadRequest<string>(deletingResult);
         }
     }
 }

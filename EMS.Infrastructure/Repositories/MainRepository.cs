@@ -1,7 +1,6 @@
 ﻿
 using System.Data;
 using Dapper;
-using System.Data.SqlClient;
 using EMS.Infrastructure.Presistence.Context;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -36,13 +35,19 @@ namespace EMS.Infrastructure.Repositories
             if (id<=0)
                 throw new ArgumentOutOfRangeException("Invalid Data");
 
-            var entity = await _entity.FindAsync(id); 
-            if (entity is null)
-                throw new Exception("Entity Not Found");
+            using (IDbConnection connection = new SqlConnection(_connection))
+            {
+                var Sql = $"SELECT * FROM {typeof(TEntity).Name} WHERE ID = @Id";
+                TEntity entity = await connection.
+                    QuerySingleOrDefaultAsync<TEntity>(Sql,new { Id = id});
 
-            _entity.Remove(entity);
-            var resultDeleted = await _app.SaveChangesAsync();
-            return resultDeleted > 0 ? "Deleted" : "Invalid";
+                if (entity is null)
+                    return "Not Found";
+
+                _entity.Remove(entity);
+                var resultDeleted = await _app.SaveChangesAsync();
+                return resultDeleted > 0 ? "Deleted" : "Invalid";
+            }
         }
 
         public async ValueTask<ICollection<TEntity>> GetAll()
@@ -76,7 +81,7 @@ namespace EMS.Infrastructure.Repositories
             
             var found = await _entity.FindAsync(id);
             if (found is null)
-                throw new Exception($"{entity.GetType()} Not Found");
+                return "Not Found";
 
             _app.Entry(found).CurrentValues.SetValues(entity);
             var resultUpdate = await _app.SaveChangesAsync();

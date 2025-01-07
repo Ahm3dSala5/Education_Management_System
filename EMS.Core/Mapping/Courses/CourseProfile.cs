@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using EMS.Core.Features.Courses.Query.Model;
-using EMS.Infrastructure.Domain.Entities;
-
+﻿using AutoMapper;
 namespace EMS.Core.Mapping.Courses
 {
     public partial class CourseProfile : Profile
@@ -14,6 +6,8 @@ namespace EMS.Core.Mapping.Courses
         public CourseProfile()
         {
             GetCoursesMapping();
+            CreateCourseCommandMapping();
+            UpdateCourseCommandMapping();
         }
     }
 }

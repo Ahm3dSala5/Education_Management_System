@@ -33,21 +33,21 @@ namespace EMS.API.Controllers
             return Ok(HandledResult(departments));
         }
 
-        [HttpGet("GetStudents/{id}")]
+        [HttpGet("Students/{id}")]
         public async Task<IActionResult> GetStudents(int id)
         {
             var students = await Mediator!.Send(new GetDepartmentStudents(id));
             return Ok(HandledResult(students));
         }
 
-        [HttpGet("GetCourses/{id}")]
+        [HttpGet("Courses/{id}")]
         public async Task<IActionResult> GetCourses(int id)
         {
             var courses = await Mediator!.Send(new GetDepartmentCourses(id));
             return Ok(HandledResult(courses));
         }
 
-        [HttpGet("GetInstractors/{id}")]
+        [HttpGet("Instructors/{id}")]
         public async Task<IActionResult> GetInstractors(int id)
         {
             var instractors = await Mediator!.Send(new GetDepartmentInstractors(id));

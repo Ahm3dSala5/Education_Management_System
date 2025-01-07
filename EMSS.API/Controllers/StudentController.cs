@@ -40,14 +40,14 @@ namespace EMS.API.Controllers
             return HandledResult(student);
         }
 
-        [HttpGet("GetCourse/{id}")]
+        [HttpGet("Courses/{id}")]
         public async Task<IActionResult> GetCouses(int id)
         {
             var courses = await Mediator!.Send(new GetStudentCoursesQuery(id));
             return HandledResult(courses);
         }
 
-        [HttpGet("GetInstructors/{id}")]
+        [HttpGet("Instructors/{id}")]
         public async Task<IActionResult> GetInstructors(int id)
         {
             var Instructors = await Mediator!.Send(new GetStudentInstructorsQuery(id));
@@ -61,7 +61,7 @@ namespace EMS.API.Controllers
             return HandledResult(updationResult);
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var deletionResult = await _mediator.Send(new DeleteStudentCommand(id));

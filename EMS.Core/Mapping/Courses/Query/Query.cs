@@ -15,7 +15,7 @@ namespace EMS.Core.Mapping.Courses
         {
             CreateMap<CourseModel, Course>().
                 ForMember(x => x.Id, x => x.MapFrom(x => x.cou_Id)).
-                ForMember(x => x.DepartmentId, x => x.MapFrom(x => x.cou_Id)).
+                ForMember(x => x.DepartmentId, x => x.MapFrom(x => x.cou_DepartmentId)).
                 ForMember(x => x.Code, x => x.MapFrom(x => x.cou_Code)).
                 ForMember(x => x.Level, x => x.MapFrom(x => x.cou_Level)).
                 ForMember(x => x.Hours, x => x.MapFrom(x => x.cou_Hours)).ReverseMap();
