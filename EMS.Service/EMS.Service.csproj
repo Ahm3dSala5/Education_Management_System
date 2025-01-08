@@ -15,8 +15,4 @@
     <ProjectReference Include="..\EMS.Infrastructure\EMS.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EMS.Implementations\Security\" />
-  </ItemGroup>
-
 </Project>
